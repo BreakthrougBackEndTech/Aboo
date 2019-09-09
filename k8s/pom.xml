@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <parent>
+        <groupId>com.aboo.movie</groupId>
+        <artifactId>movie-root</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>k8s</artifactId>
+
+    <dependencyManagement>
+        <!--在根pom定义所有依赖的version， 需要的时候在子pom里面引用， 不需要版本号 -->
+        <dependencies>
+
+        </dependencies>
+    </dependencyManagement>
+
+</project>
