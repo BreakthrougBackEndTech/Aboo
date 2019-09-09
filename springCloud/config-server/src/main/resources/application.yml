@@ -6,4 +6,4 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/BreakthrougBackEndTech/spring-config
+          uri: https://github.com/BreakthrougBackEndTech/config-server
