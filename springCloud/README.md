@@ -16,6 +16,7 @@ csrf 解决方法, jwt
 ### user-service
 用户服务
 #### Done
+swagger集成 http://localhost:port/swagger-ui.html
 #### Todo
 mybatis 持久化
 

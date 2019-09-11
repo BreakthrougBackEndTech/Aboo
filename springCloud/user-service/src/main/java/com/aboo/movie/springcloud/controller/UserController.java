@@ -3,6 +3,7 @@ package com.aboo.movie.springcloud.controller;
 import com.aboo.movie.springcloud.domain.SysPrivilege;
 import com.aboo.movie.springcloud.domain.SysRole;
 import com.aboo.movie.springcloud.domain.SysUser;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ import java.util.Optional;
 @CrossOrigin(origins = "*")
 public class UserController {
 
+    @ApiOperation(value = "根据username查找用户信息", notes = "暂时返回mock数据")
     @GetMapping(path = "/loadUserByUsername/{username}")
     public Optional<SysUser> loadUserByUsername(@PathVariable String username) {
 
