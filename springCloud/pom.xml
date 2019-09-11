@@ -14,8 +14,21 @@
     <packaging>pom</packaging>
     <modules>
         <module>config-server</module>
+        <module>recommend-web</module>
+        <module>user-service</module>
+        <module>movie-domain</module>
+        <module>regist-server</module>
     </modules>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.aboo.movie</groupId>
+                <artifactId>movie-domain</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
 
 </project>

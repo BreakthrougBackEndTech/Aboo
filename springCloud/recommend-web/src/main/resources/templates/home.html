@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<!--head部分-->
+<head th:include="layout :: htmlhead">
+</head>
+<body class="layui-layout-body">
+    <div class="layui-layout layui-layout-admin">
+        <!--头-->
+        <div th:replace="fragments/head :: header"></div>
+        <!--主体区域-->
+        <!-- <div class="layui-body" th:include="channel/channelImport :: authorize"></div> -->
+        <!--<div th:include="channel/body :: body"></div>-->
+        <!-- 左侧侧边导航开始 -->
+        <!--<div class="layui-side layui-side-bg layui-larry-side" id="larry-side">
+            <div class="layui-side-scroll" id="larry-nav-side" lay-filter="side">
+
+                &lt;!&ndash; 左侧菜单 &ndash;&gt;
+                <ul class="layui-nav layui-nav-tree">
+                    <li class="layui-nav-item layui-this">
+                        <a href="javascript:;" data-url="main.html">
+                            <i class="iconfont icon-home1" data-icon='icon-home1'></i>
+                            <span>后台首页</span>
+                        </a>
+                    </li>
+                    &lt;!&ndash; 个人信息 &ndash;&gt;
+                    <li class="layui-nav-item">
+                        <a href="javascript:;">
+                            <i class="iconfont icon-jiaoseguanli" ></i>
+                            <span>我的面板</span>
+                            <em class="layui-nav-more"></em>
+                        </a>
+                        <dl class="layui-nav-child">
+                            <dd>
+                                <a href="javascript:;" data-url="personInfo.html">
+                                    <i class="iconfont icon-geren1" data-icon='icon-geren1'></i>
+                                    <span>个人信息</span>
+                                </a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;" data-url="changepwd.html">
+                                    <i class="iconfont icon-iconfuzhi01" data-icon='icon-iconfuzhi01'></i>
+                                    <span>修改密码</span>
+                                </a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;" data-url="myloginfo.html">
+                                    <i class="iconfont icon-piliangicon" data-icon='icon-piliangicon'></i>
+                                    <span>日志信息</span>
+                                </a>
+                            </dd>
+                        </dl>
+                    </li>
+                    &lt;!&ndash; 用户管理 &ndash;&gt;
+                    <li class="layui-nav-item">
+                        <a href="javascript:;">
+                            <i class="iconfont icon-jiaoseguanli2" ></i>
+                            <span>告警管理</span>
+                            <em class="layui-nav-more"></em>
+                        </a>
+                        <dl class="layui-nav-child">
+                            <dd>
+                                <a href="javascript:;" data-url="table.html">
+                                    <i class="iconfont icon-yonghu1" data-icon='icon-yonghu1'></i>
+                                    <span>所有告警</span>
+                                </a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;"  data-url="table_1.html">
+                                    <i class="iconfont icon-jiaoseguanli4" data-icon='icon-jiaoseguanli4'></i>
+                                    <span>新增告警</span>
+                                </a>
+                            </dd>
+                        </dl>
+                    </li>
+                    &lt;!&ndash; 友链设置 &ndash;&gt;
+                    <li class="layui-nav-item">
+                        <a href="javascript:;">
+                            <i class="iconfont icon-youqinglianjie"  data-icon='icon-youqinglianjie'></i>
+                            <span>友情链接</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>-->
+
+        <div class="layui-body">
+            <div class="layui-container">
+                <div class="layui-row">
+                    <div class="layui-col-xs9">
+                        &nbsp;
+                        <p class="bg-primary" th:text="${content}"></p>
+                        <div sec:authorize="hasRole('ROLE_ADMIN')">
+                            <p class="bg-info" th:text="${extraInfo}"></p>
+                        </div>
+                        <div sec:authorize="hasRole('ROLE_USER')">
+                            <p class="bg-info">无更多显示信息</p>
+                        </div>
+                        <div sec:authorize="hasRole('ROLE_USER1')">
+                            <p class="bg-info">role_user1无更多显示信息</p>
+                        </div>
+                        <div sec:authorize="hasRole('ROLE_USER2')">
+                            <p class="bg-info">role_user2无更多显示信息</p>
+                        </div>
+
+                        <div sec:authorize="hasAuthority('writeAll')">
+                            <p class="bg-info">writeAll</p>
+                        </div>
+                        <div sec:authorize="hasAuthority('readAll')">
+                            <p class="bg-info"><a href="/readSession">readAll</a></p>
+                        </div>
+                        <div sec:authorize="hasAuthority('write1')">
+                            <p class="bg-info">write1</p>
+                        </div>
+                        <div sec:authorize="hasAuthority('write2')">
+                            <p class="bg-info">write2</p>
+                        </div>
+                        <p>
+                            普通请求异常：
+                            <a href="/error/getError">点击</a>
+                        </p>
+                        <p>
+                            ajax异步请求异常：
+                            <a href="javascript:void(0)" onclick="ajaxError()">点击</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script type="text/javascript" src="/js/error.js"></script>
+        <!--底部-->
+        <div th:replace="fragments/footer :: footer"></div>
+    </div>
+</body>
+</html>
