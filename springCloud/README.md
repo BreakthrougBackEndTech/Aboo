@@ -7,19 +7,18 @@
 
 ### recommend-web
 推荐系统前端界面
-####done
+#### Done
 spring security授权
 Feign 服务调用，熔断，降级
-
-#### todo 
+#### Todo 
 csrf 解决方法, jwt
 
 ### user-service
 用户服务
-#### done
-#### todo
+#### Done
+#### Todo
 mybatis 持久化
 
 
 微信公众号
-![image](img/weixin.jpg)
+![image](../img/weixin.jpg)
