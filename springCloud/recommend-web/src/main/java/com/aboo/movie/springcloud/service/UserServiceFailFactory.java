@@ -1,8 +1,6 @@
 package com.aboo.movie.springcloud.service;
 
-import com.aboo.movie.springcloud.domain.SysPrivilege;
-import com.aboo.movie.springcloud.domain.SysRole;
-import com.aboo.movie.springcloud.domain.SysUser;
+import com.aboo.movie.springcloud.domain.*;
 import feign.hystrix.FallbackFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -24,34 +22,23 @@ public class UserServiceFailFactory implements FallbackFactory<UserServiceClient
 
         return (username) -> {
 
-            SysUser sysUser = new SysUser();
+            MybatisUser mybatisUser = new MybatisUser();
 
             log.info("return default user");
 
-            sysUser.setId(2L);
-            sysUser.setUsername(username);
-            sysUser.setPassword(username);
+            mybatisUser.setUsername(username);
+            mybatisUser.setPassword(username);
 
-            SysRole role = new SysRole();
+            MybatisRole mybatisRole = new MybatisRole();
 
-            SysPrivilege sysPrivilege = new SysPrivilege();
+            mybatisRole.setName("read1");
 
-            sysPrivilege.setId(1L);
-            sysPrivilege.setPermission("readAll");
+            List<MybatisRole> list = new ArrayList<>();
+            list.add(mybatisRole);
+            mybatisUser.setRoles(list);
 
 
-            List<SysPrivilege> list = new ArrayList<>();
-            list.add(sysPrivilege);
-
-            role.setId(2L);
-            role.setName("ROLE_USER");
-            role.setPrivileges(list);
-
-            List<SysRole> roles = new ArrayList<>();
-            roles.add(role);
-            sysUser.setRoles(roles);
-
-            return sysUser;
+            return mybatisUser;
         };
 
     }

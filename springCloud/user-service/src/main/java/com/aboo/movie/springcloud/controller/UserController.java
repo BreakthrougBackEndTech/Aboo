@@ -1,13 +1,14 @@
 package com.aboo.movie.springcloud.controller;
 
-import com.aboo.movie.springcloud.domain.SysPrivilege;
-import com.aboo.movie.springcloud.domain.SysRole;
-import com.aboo.movie.springcloud.domain.SysUser;
+import com.aboo.movie.springcloud.domain.MybatisUser;
+import com.aboo.movie.springcloud.service.MybatisUserService;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -20,11 +21,15 @@ import java.util.Optional;
 @CrossOrigin(origins = "*")
 public class UserController {
 
+    @Autowired
+    MybatisUserService mybatisUserService;
+
     @ApiOperation(value = "根据username查找用户信息", notes = "暂时返回mock数据")
     @GetMapping(path = "/loadUserByUsername/{username}")
-    public Optional<SysUser> loadUserByUsername(@PathVariable String username) {
+    public Optional<MybatisUser> loadUserByUsername(@PathVariable String username) {
 
-        SysUser sysUser = new SysUser();
+        return mybatisUserService.findByUsername(username);
+        /*SysUser sysUser = new SysUser();
         sysUser.setId(1L);
         sysUser.setUsername(username);
         sysUser.setPassword(username);
@@ -53,7 +58,7 @@ public class UserController {
         roles.add(role);
         sysUser.setRoles(roles);
 
-        return Optional.of(sysUser);
+        return Optional.of(sysUser);*/
 
     }
 }

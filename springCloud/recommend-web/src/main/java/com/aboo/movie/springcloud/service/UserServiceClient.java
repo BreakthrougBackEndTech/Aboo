@@ -1,5 +1,6 @@
 package com.aboo.movie.springcloud.service;
 
+import com.aboo.movie.springcloud.domain.MybatisUser;
 import com.aboo.movie.springcloud.domain.SysUser;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -8,6 +9,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+
+import java.util.Optional;
 
 /**
  * @description:
@@ -18,7 +21,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 public interface UserServiceClient {
 
     @GetMapping("/loadUserByUsername/{username}")
-    SysUser loadUserByUsername(@PathVariable("username") String username);
+    MybatisUser loadUserByUsername(@PathVariable("username") String username);
 
 }
 
