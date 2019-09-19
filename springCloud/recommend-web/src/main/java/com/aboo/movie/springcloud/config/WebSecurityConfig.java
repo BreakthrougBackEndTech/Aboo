@@ -1,12 +1,19 @@
 package com.aboo.movie.springcloud.config;
 
+import com.aboo.movie.springcloud.security.JwtTokenFilterConfigurer;
+import com.aboo.movie.springcloud.security.JwtTokenProvider;
 import com.aboo.movie.springcloud.service.CustomUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 
 /**
@@ -15,24 +22,35 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
  * @create: 2019-09-10 11:03
  **/
 @Configuration
+@EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+/*    @Autowired
+    CustomUserService customUserService;*/
+
     @Autowired
-    CustomUserService customUserService;
+    private JwtTokenProvider jwtTokenProvider;
 
     @Bean
     public static NoOpPasswordEncoder passwordEncoder() {
         return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();
     }
 
-    @Override
+
+  /*  @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(customUserService);
     }
-
+*/
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        // Disable CSRF (cross site request forgery)
         http.csrf().disable();
+
+        // No session will be created or used by spring security
+        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
         http.authorizeRequests()
                 //允许所有用户访问"/","/jquery/**","/semantic/**","/css/**","/js/**","/images/**"
                 .antMatchers("/",
@@ -43,11 +61,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/images/**",
                         "/layui/**",
                         "/treegrid/**").permitAll()
+                .antMatchers("/jwt/login").permitAll()//
                 .anyRequest().authenticated()
-                .and().formLogin().loginPage("/login").failureUrl("/login?error").permitAll()
+//                .and().formLogin().loginPage("/login").failureUrl("/login?error").permitAll()
                 .and()
                 .logout()
                 .permitAll();
+
+        // If a user try to access a resource without having enough permissions
+        http.exceptionHandling().accessDeniedPage("/login");
+
+        // Apply JWT
+        http.apply(new JwtTokenFilterConfigurer(jwtTokenProvider));
+
+        // Optional, if you want to test the API from a browser
+        // http.httpBasic();
 
        /* http.authorizeRequests()
                 .anyRequest().authenticated()

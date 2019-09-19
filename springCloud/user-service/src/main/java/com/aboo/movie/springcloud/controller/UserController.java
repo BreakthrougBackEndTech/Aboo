@@ -1,4 +1,4 @@
-package com.aboo.movie.springcloud.controller;
+ package com.aboo.movie.springcloud.controller;
 
 import com.aboo.movie.springcloud.domain.MybatisUser;
 import com.aboo.movie.springcloud.service.MybatisUserService;

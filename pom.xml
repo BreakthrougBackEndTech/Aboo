@@ -44,6 +44,7 @@
         <jmockit.version>1.19</jmockit.version>
         <spring-cloud.version>Finchley.SR1</spring-cloud.version>
         <swagger.version>2.9.2</swagger.version>
+        <jsonwebtoken.version>0.7.0</jsonwebtoken.version>
 
         <!--plugin-->
         <maven.plugin.compiler.version>3.1</maven.plugin.compiler.version>
@@ -92,6 +93,13 @@
                 <groupId>io.springfox</groupId>
                 <artifactId>springfox-swagger-ui</artifactId>
                 <version>${swagger.version}</version>
+            </dependency>
+
+            <!-- JSON Web Token Support -->
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt</artifactId>
+                <version>${jsonwebtoken.version}</version>
             </dependency>
 
         </dependencies>
