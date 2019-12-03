@@ -5,19 +5,6 @@
 <header th:fragment="header">
     <script th:inline="javascript">
 
-        jQuery(document).bind("ajaxSend", function (event, request, settings) {
-            alert(1);
-            var token = getJwtToken();
-            alert(token);
-//config_contextPath 为需要设置token的 全局host,严格判断防止 token发送到其他站点被盗取
-//                     if(token && config_contextPath && settings.url && settings.url.indexOf(config_contextPath) === 0){
-            if (token && settings.url) {
-                var headers = settings.headers || {};
-                headers["Authorization"] = "Bearer " + token;
-                request.setRequestHeader("Authorization", "Bearer " + token);
-                settings.headers = headers;
-            }
-        });
         /*<![CDATA[*/
         $(function () {
             //手机设备的简单适配

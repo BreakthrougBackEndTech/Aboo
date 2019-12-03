@@ -112,11 +112,11 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-dependencies</artifactId>
         </dependency>
-
+<!--
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt</artifactId>
-        </dependency>
+        </dependency>-->
 
     </dependencies>
 

@@ -90,7 +90,7 @@
                 <div class="layui-col-xs9">
                     &nbsp;
                     <p class="bg-primary" th:text="${content}"></p>
-                    <div sec:authorize="hasRole('ROLE_ADMIN')">
+         <!--           <div sec:authorize="hasRole('ROLE_ADMIN')">
                         <p class="bg-info" th:text="${extraInfo}"></p>
                     </div>
                     <div sec:authorize="hasRole('ROLE_USER')">
@@ -102,8 +102,9 @@
                     <div sec:authorize="hasRole('ROLE_USER2')">
                         <p class="bg-info">role_user2无更多显示信息</p>
                     </div>
-
+-->
                     <div sec:authorize="hasAuthority('writeAll')">
+                        <p class="bg-info" th:text="${extraInfo}"></p>
                         <p class="bg-info">writeAll</p>
                     </div>
                     <div sec:authorize="hasAuthority('readAll')">
@@ -129,51 +130,6 @@
     </div>
 
     <script type="text/javascript" src="/js/error.js"></script>
-    <script src="/js/jwtcommon.js"></script>
-    <script th:inline="javascript">
-        var token = [[${token}]];
-        alert(token);
-        setJwtToken(token);
-     /*   if (window.jQuery) {
-            //ajax预处理 后置处理
-            jQuery(document).bind("ajaxSend", function (event, request, settings) {
-                var token = getJwtToken();
-//config_contextPath 为需要设置token的 全局host,严格判断防止 token发送到其他站点被盗取
-//                     if(token && config_contextPath && settings.url && settings.url.indexOf(config_contextPath) === 0){
-                if (token && settings.url) {
-                    var headers = settings.headers || {};
-                    headers["Authorization"] = "Bearer " + token;
-                    request.setRequestHeader("Authorization", "Bearer " + token);
-                    settings.headers = headers;
-                }
-            }).bind("ajaxComplete", function (event, xhr, settings) {
-                // if(config_contextPath && settings.url && settings.url.indexOf(config_contextPath) === 0 && (settings.dataType === 'JSON' || settings.dataType === 'json')){
-                if (settings.url && (settings.dataType === 'JSON' || settings.dataType === 'json')) {
-                    if (xhr.status == 200 && xhr.responseText) {
-                        try {
-                            var reObj = JSON.parse(xhr.responseText);
-                            //特殊code 没有权限 和token失效
-                            if (reObj && (reObj.code == 3001 || reObj.code == 3002)) {
-                                window.setTimeout(function () {
-                                    if ($(".layui-layer-dialog.layui-layer-msg:visible").length < 1) {
-                                        layer.alert(reObj.message, {icon: 2}, function () {
-                                            if (reObj.code == 3001) {
-                                                var topWindow = parent ? (parent.parent ? (parent.parent.parent ? parent.parent.parent : parent.parent) : parent) : window;
-                                                topWindow.location.href = 'jwt/login';
-                                            }
-                                        });
-                                    }
-                                }, 500);
-                            }
-                        } catch (e) {
-                            console.error(e)
-                        }
-                    }
-                }
-            });
-        }*/
-
-    </script>
     <!--底部-->
     <div th:replace="fragments/footer :: footer"></div>
 </div>

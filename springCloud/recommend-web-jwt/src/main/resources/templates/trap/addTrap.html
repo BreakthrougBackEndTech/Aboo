@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--head部分-->
+<head>
+</head>
+<body style="width: 100%;height:auto;background: url('/images/bk.gif') no-repeat;background-size: 100%;">
+    <div class="layui-container" style="height: 100%">
+
+        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 6%">
+            <legend style="margin-left: 40%"><span style="font-weight: bold;font-size:22px;">add Trap</span></legend>
+        </fieldset>
+
+
+      <!--  <div class="layui-row">
+            <p class="bg-info" th:text="${msg}"></p>
+            <form id="saveTrapForm" th:object="${trapInfo}" method="post">
+                <label>id</label><input id="id" th:field="*{id}" lay-verify="required" autocomplete="off" class="layui-input"/>
+                <label>name</label><input id="name" th:field="*{name}" lay-verify="required" autocomplete="off" class="layui-input"/>
+                <label>oid</label><input id="oid" th:field="*{oid}" lay-verify="required" autocomplete="off" class="layui-input"/>
+                <label>description</label><input id="description" th:field="*{description}" lay-verify="required" autocomplete="off" class="layui-input"/>
+                <button type="submit">提交</button>
+            </form>
+        </div>-->
+
+        <form id="saveTrapForm"  onsubmit="return false" action="#" method="post">
+            <label>id</label><input id="id" name="id" lay-verify="required" autocomplete="off" class="layui-input"/>
+            <label>name</label><input id="name" name="name" lay-verify="required" autocomplete="off" class="layui-input"/>
+            <label>oid</label><input id="oid" name="oid" lay-verify="required" autocomplete="off" class="layui-input"/>
+            <label>description</label><input id="description" name="description" lay-verify="required" autocomplete="off" class="layui-input"/>
+
+            <input id="form_button" onclick="submitForm()" class="submit_btn" type="submit" value="保存" />
+        </form>
+    </div>
+
+    <script src="/js/jquery/jquery-3.0.0.js"></script>
+    <script type="text/javascript">
+          function submitForm() {
+               $.ajax({
+                type: "POST",
+                url: "/trap/saveTrap",
+                data: $('#saveTrapForm').serialize(),
+                dataType: 'json',
+                cache: false,
+                timeout: 600000,
+                success: function (data) {
+                    if(data.result=='success'){
+                        alert("修改成功");
+                    }else{
+                        alert("修改失败，失败原因【" + data + "】");
+                    }
+                },
+                error: function (e) {
+                    alert(2);
+                }
+            });
+
+        }
+    </script>
+
+</body>
+</html>

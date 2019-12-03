@@ -2,16 +2,12 @@ package com.aboo.movie.springcloud.service;
 
 import com.aboo.movie.springcloud.MovieUser;
 import com.aboo.movie.springcloud.domain.MybatisUser;
-import com.aboo.movie.springcloud.domain.SysUser;
-import com.aboo.movie.springcloud.security.JwtTokenProvider;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 /**
  * @description:
