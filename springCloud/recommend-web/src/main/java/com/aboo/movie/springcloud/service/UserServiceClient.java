@@ -22,6 +22,5 @@ public interface UserServiceClient {
 
     @GetMapping("/loadUserByUsername/{username}")
     MybatisUser loadUserByUsername(@PathVariable("username") String username);
-
 }
 
