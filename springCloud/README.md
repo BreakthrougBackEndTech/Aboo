@@ -39,6 +39,12 @@ mybatis注解
 ### zuul-server
 统一的网关
 http://localhost:5555/user-service/loadUserByUsername/luffy
+请求统一在header添加correlation id
+
+#### Todo
+```
+AB测试时使用
+```
 
 微信公众号
 ![image](../img/weixin.jpg)
