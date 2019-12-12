@@ -18,6 +18,8 @@
         <module>user-service</module>
         <module>movie-domain</module>
         <module>regist-server</module>
+        <module>admin-server</module>
+        <module>zuul-server</module>
     </modules>
 
     <dependencyManagement>

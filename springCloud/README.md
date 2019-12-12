@@ -29,6 +29,16 @@ mybatis注解
 ```
 #### Todo
 
+### admin-server
+可以监控健康状态， 线程， 性能等
+#### Todo
+```task
+认证
+```
+
+### zuul-server
+统一的网关
+http://localhost:5555/user-service/loadUserByUsername/luffy
 
 微信公众号
 ![image](../img/weixin.jpg)

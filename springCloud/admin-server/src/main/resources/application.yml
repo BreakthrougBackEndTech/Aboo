@@ -1,0 +1,12 @@
+server:
+  port: 9090
+
+spring:
+  security:
+    user:
+      name: admin
+      password: admin
+      
+eureka:
+  client:
+    register-with-eureka: false

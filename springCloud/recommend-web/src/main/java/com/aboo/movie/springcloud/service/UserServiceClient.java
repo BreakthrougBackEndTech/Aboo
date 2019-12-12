@@ -17,10 +17,11 @@ import java.util.Optional;
  * @author: zhegong
  * @create: 2019-09-10 10:36
  **/
-@FeignClient(value = "user-service", fallbackFactory = UserServiceFailFactory.class)
+//@FeignClient(value = "user-service", fallbackFactory = UserServiceFailFactory.class)
+@FeignClient(value = "zuul-service", fallbackFactory = UserServiceFailFactory.class)
 public interface UserServiceClient {
 
-    @GetMapping("/loadUserByUsername/{username}")
+    @GetMapping("user-service/loadUserByUsername/{username}")
     MybatisUser loadUserByUsername(@PathVariable("username") String username);
 }
 

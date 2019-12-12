@@ -7,3 +7,6 @@ spring:
       server:
         git:
           uri: https://github.com/BreakthrougBackEndTech/config-server
+#          searchPaths: licensingservice,organizationservice
+#          username: native-cloud-apps
+#          password: 0ffended

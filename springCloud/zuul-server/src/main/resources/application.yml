@@ -1,0 +1,19 @@
+server:
+  port: 5555
+
+spring:
+  application:
+    name: zuul-service
+  cloud:
+    config:
+      uri: http://localhost:8888
+
+
+
+
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+##        include: hystrix.stream
+#        include: '*'
