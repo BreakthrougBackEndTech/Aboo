@@ -43,8 +43,20 @@ http://localhost:5555/user-service/loadUserByUsername/luffy
 
 #### Todo
 ```
-AB测试时使用
+AB测试时使用 
 ```
+
+### zipkin-server
+```
+http://localhost:9411/zipkin
+调用跟踪 生产环境需要将Sampler.ALWAYS_SAMPLE 去掉， 设置为百分比
+官方版本https://search.maven.org/remote_content?g=io.zipkin&a=zipkin-server&v=LATEST&c=exec
+```
+
+### log-server
+统一日志管理
+#### Todo
+ELK
 
 微信公众号
 ![image](../img/weixin.jpg)

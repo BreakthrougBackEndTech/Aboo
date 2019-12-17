@@ -1,0 +1,14 @@
+#Default port is 8761
+server:
+  port: 9411
+
+
+spring:
+  application:
+    name: zipkin-server
+
+management:
+  metrics:
+    web:
+      server:
+        auto-time-requests: false

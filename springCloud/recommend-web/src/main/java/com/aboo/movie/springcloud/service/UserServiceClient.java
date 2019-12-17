@@ -21,6 +21,7 @@ import java.util.Optional;
 @FeignClient(value = "zuul-service", fallbackFactory = UserServiceFailFactory.class)
 public interface UserServiceClient {
 
+//    @GetMapping("loadUserByUsername/{username}")
     @GetMapping("user-service/loadUserByUsername/{username}")
     MybatisUser loadUserByUsername(@PathVariable("username") String username);
 }
