@@ -31,9 +31,8 @@ public class MovieServiceFallback implements MovieServiceClient {
         movies.add(movie2);
 
         Map<String, Object> maps = new HashMap<>();
-        maps.put("data", movies);
-        maps.put("recordsTotal", 2);
-        maps.put("recordsFiltered", 2);
+        maps.put("movies", movies);
+        maps.put("recordsTotal", 31);
 /*        maps.put("data", page.getContent());
         maps.put("recordsTotal", page.getTotalElements());
         maps.put("recordsFiltered", page.getTotalElements());*/

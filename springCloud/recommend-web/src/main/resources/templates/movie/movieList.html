@@ -14,7 +14,6 @@
 
     <script type="text/javascript" th:inline="none">
 
-        
         $(document).ready(function(){
            /* var table=$("#movielistTable").DataTable({
                 "autoWidth": true,
@@ -33,24 +32,42 @@
                 ]
             });*/
 
+           var numsPerPage=10;
+
 
             $.ajax({
                 type: "POST",
                 url: "/movieInfoList",
-                data: {"start":1, "length":10, "draw":0},
+                data: {"start":1, "length":numsPerPage},
                 // contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function(data){
-                    alert(data);
-                    alert(data["recordsTotal"]);
+                    showMovies(data);
                     // init bootpag
                     $('#page-selection').bootpag({
-                        total: data["recordsTotal"]/10 + 1
+                        total: data["recordsTotal"]/numsPerPage
                     }).on("page", function(event, /* page number here */ num){
-                        $("#content").html("Insert content"); // some ajax content loading...
+                        // $("#content").html("Insert content"); // some ajax content loading...
+
+                        $.ajax({
+                            type: "POST",
+                            url: "/movieInfoList",
+                            data: {"start":num, "length":numsPerPage},
+                            // contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            success: function(data){
+                                showMovies(data);
+                            },
+                            failure: function(errMsg) {
+                                alert(errMsg);
+                            }
+                        });
+
+
+
                     });
 
-                    },
+                },
                 failure: function(errMsg) {
                     alert(errMsg);
                 }
@@ -85,6 +102,14 @@
             // firstClass css class for first (default 'first')
 
         });
+
+        function showMovies(data) {
+
+            // $("#content").html("Insert content"); // some ajax content loading...
+            alert(data["movies"][0]);
+            alert(data["movies"][0]["movieName"]);
+
+        }
 
 
 

@@ -30,7 +30,8 @@ public class MovieController {
     @RequestMapping("movieInfoList")
     @ResponseBody
     public Map<String, Object> trapInfoList(HttpServletRequest request, @RequestParam Integer start, @RequestParam Integer length,
-                                            @RequestParam int draw, @RequestParam(value = "search[value]", required = false, defaultValue = "") String name) {
+                                            @RequestParam(required = false, defaultValue = "0") int draw,
+                                            @RequestParam(value = "search[value]", required = false, defaultValue = "") String name) {
 //        Pageable pageable = new PageRequest(start / length, length);
 
 //        Page<TrapInfo> page = trapInfoService.findByNameLike("%" + name + "%", pageable);
