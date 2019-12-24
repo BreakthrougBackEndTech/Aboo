@@ -1,4 +1,4 @@
-
+![image](../img/spring-cloud-arch.png)
 ### config-server
 统一的配置服务，所有服务默认都会读取application.yml里面的配置，然后每个服务读取和自己服务名一样的配置
 
