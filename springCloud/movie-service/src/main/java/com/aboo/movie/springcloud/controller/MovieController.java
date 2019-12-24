@@ -3,10 +3,7 @@ package com.aboo.movie.springcloud.controller;
 import com.aboo.movie.springcloud.domain.Movie;
 import com.aboo.movie.springcloud.service.MybatisMovieService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -32,5 +29,11 @@ public class MovieController {
     public int getMovieNum() {
         return mybatisMovieService.getMovieNum();
     }
+
+    @GetMapping(path = "/getMovieDetail")
+    public Movie getMovieDetail(@RequestParam Integer movieId) {
+        return mybatisMovieService.getMovieDetail(movieId);
+    }
+
 }
 

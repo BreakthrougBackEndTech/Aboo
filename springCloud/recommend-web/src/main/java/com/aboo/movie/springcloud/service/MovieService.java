@@ -6,8 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @description:
@@ -27,13 +25,24 @@ public class MovieService {
         List<Movie> movies = movieServiceClient.getMoviePage(start, length);
         //change images patch
         for (Movie movie : movies) {
-            movie.setImagePath(imageFolder + movie.getImagePath());
+            addImagePathPrefix(movie);
         }
         return movies;
     }
 
     public int getMovieNum() {
         return movieServiceClient.getMovieNum();
+    }
+
+    public Movie getMovieDetail(Integer movieId) {
+        Movie movie = movieServiceClient.getMovieDetail(movieId);
+        addImagePathPrefix(movie);
+
+        return movie;
+    }
+
+    private void addImagePathPrefix(Movie movie) {
+        movie.setImagePath(imageFolder + movie.getImagePath());
     }
 }
 

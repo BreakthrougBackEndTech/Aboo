@@ -4,79 +4,87 @@
     <meta charset="UTF-8"/>
     <title>Movie List</title>
     <link type="text/css" href="/core/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link type="text/css" href="/css/star-rating.css" rel="stylesheet"/>
     <!--<link rel="stylesheet" type="text/css" href="/core/datatables/media/css/dataTables.bootstrap.css"/>-->
     <script type="text/javascript" th:src="${'/js/jquery/jquery-3.0.0.min.js'}"></script>
     <script type="text/javascript" th:src="${'/core/bootstrap/dist/js/bootstrap.min.js'}"></script>
     <script type="text/javascript" th:src="${'/js/jquery.bootpag.min.js'}"></script>
+    <script type="text/javascript" th:src="${'/js/star-rating.js'}"></script>
     <!--<script type="text/javascript" th:src="${'/core/datatables/media/js/jquery.dataTables.js'}"></script>-->
     <!--<script type="text/javascript" th:src="${'/core/datatables/media/js/dataTables.bootstrap.js'}"></script>-->
 
 
     <script type="text/javascript" th:inline="none">
 
-        $(document).ready(function(){
-           /* var table=$("#movielistTable").DataTable({
-                "autoWidth": true,
-                "processing": true,
-                "serverSide": true,
-                "ajax": {
-                    "url" : "/movieInfoList",
-                    "type" : "POST"
-                },
-                "order": [[ 1, "desc" ]],
-                "pagingType": "full_numbers",
-                columns : [
-                    // { "data": "id", visible:false},
-                    { "data": "movieId"},
-                    { "data": "movieName" }
-                ]
+        $(document).ready(function () {
+            /* var table=$("#movielistTable").DataTable({
+                 "autoWidth": true,
+                 "processing": true,
+                 "serverSide": true,
+                 "ajax": {
+                     "url" : "/movieInfoList",
+                     "type" : "POST"
+                 },
+                 "order": [[ 1, "desc" ]],
+                 "pagingType": "full_numbers",
+                 columns : [
+                     // { "data": "id", visible:false},
+                     { "data": "movieId"},
+                     { "data": "movieName" }
+                 ]
+             });*/
+
+          /*  $("#input-21b").rating().on("rating.clear", function(event) {
+                alert("Your rating is reset")
+            }).on("rating.change", function(event, value, caption) {
+                alert("You rated: " + value + " = " + $(caption).text());
             });*/
 
-           var numsPerPage=12;
+            var numsPerPage = 12;
 
             $.ajax({
                 type: "POST",
                 url: "/movieInfoList",
-                data: {"start":1, "length":numsPerPage},
+                data: {"start": 1, "length": numsPerPage},
                 // contentType: "application/json; charset=utf-8",
                 dataType: "json",
-                success: function(data){
+                success: function (data) {
                     showMovies(data);
                     // init bootpag
                     $('#page-selection').bootpag({
-                        total: data["recordsTotal"]/numsPerPage + 1,
+                        total: data["recordsTotal"] / numsPerPage + 1,
                         maxVisible: 10
-                    }).on("page", function(event, /* page number here */ num){
+                    }).on("page", function (event, /* page number here */ num) {
                         // $("#content").html("Insert content"); // some ajax content loading...
 
                         $.ajax({
                             type: "POST",
                             url: "/movieInfoList",
-                            data: {"start":num, "length":numsPerPage},
+                            data: {"start": num, "length": numsPerPage},
                             // contentType: "application/json; charset=utf-8",
                             dataType: "json",
-                            success: function(data){
+                            success: function (data) {
                                 showMovies(data);
                             },
-                            failure: function(errMsg) {
+                            failure: function (errMsg) {
                                 alert(errMsg);
                             }
                         });
                     });
 
                 },
-                failure: function(errMsg) {
+                failure: function (errMsg) {
                     alert(errMsg);
                 }
             });
 
 
             // init bootpag
-         /*   $('#page-selection').bootpag({
-                total: 10
-            }).on("page", function(event, /!* page number here *!/ num){
-                $("#content").html("Insert content"); // some ajax content loading...
-            });*/
+            /*   $('#page-selection').bootpag({
+                   total: 10
+               }).on("page", function(event, /!* page number here *!/ num){
+                   $("#content").html("Insert content"); // some ajax content loading...
+               });*/
 
 
             // total number of pages
@@ -101,15 +109,15 @@
         });
 
         function showMovies(data) {
-            var htmlStr="";
-            for(var i=0; i< data["movies"].length; i++){
+            var htmlStr = "";
+            for (var i = 0; i < data["movies"].length; i++) {
                 var divStr = ' <div class="col-sm-3 col-md-2">\n' +
-                    '        <div class="thumbnail">\n' +
+                    '        <div class="thumbnail" onclick="location=\'/movieDetail?movieId='+ data["movies"][i].movieId+'\'" >\n' +
                     '            <img src="' + data["movies"][i].imagePath + '"\n' +
-                    '                 alt="通用的占位符缩略图">\n' +
+                    '                 alt="通用的占位符缩略图" />\n' +
                     '            <div class="caption">\n' +
-                    '                <h4>'+ data["movies"][i].movieName + '</h4>\n' +
-                    '                <p>评分'+ data["movies"][i].avgRating +'</p>\n' +
+                    '                <h4>' + data["movies"][i].movieName + '</h4>\n' +
+                    '                <p>评分' + data["movies"][i].avgRating + '</p>\n' +
                     '                <p>\n' +
                     '                    <a href="#" class="btn btn-primary" role="button">\n' +
                     '                        喜欢\n' +
@@ -121,7 +129,7 @@
                     '            </div>\n' +
                     '        </div>\n' +
                     '    </div>';
-                htmlStr+=divStr;
+                htmlStr += divStr;
             }
 
             $("#content").html(htmlStr);
@@ -141,6 +149,10 @@
         </tr>
         </thead>
     </table>
+</div>-->
+<!--<div class="rating-stars">
+    <input id="input-21b" value="2.5" type="text" class="rating rating-input" data-min="0" data-max="5"
+            data-step="0.1" data-size="xs" required="" title="">
 </div>-->
 
 <div id="content" class="row">

@@ -1,8 +1,11 @@
 package com.aboo.movie.springcloud.controller;
 
+import com.aboo.movie.springcloud.domain.Movie;
 import com.aboo.movie.springcloud.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -40,6 +43,24 @@ public class MovieController {
         Map<String, Object> maps = new HashMap<>();
         maps.put("movies", movieService.getMoviePage((start - 1) * length, length));
         maps.put("recordsTotal", recordsTotal == 0 ? movieService.getMovieNum() : recordsTotal);
+
+        return maps;
+    }
+
+    @RequestMapping("movieDetail")
+    public String movieDetail(Model model, HttpServletRequest request, @RequestParam Integer movieId) {
+        Movie movie = movieService.getMovieDetail(movieId);
+        model.addAttribute("movie", movie);
+
+        return "movie/movieDetail";
+    }
+
+    @PostMapping(path = "/ratedMovie")
+    @ResponseBody
+    public Map<String, Object> ratedMovie(@RequestParam Integer movieId, @RequestParam Float rated) {
+
+        Map<String, Object> maps = new HashMap<>();
+        maps.put("result", "rated success");
 
         return maps;
     }

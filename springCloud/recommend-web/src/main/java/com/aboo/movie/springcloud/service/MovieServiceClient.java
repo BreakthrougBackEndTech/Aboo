@@ -21,5 +21,8 @@ public interface MovieServiceClient {
 
     @GetMapping("getMovieNum")
     int getMovieNum();
+
+    @GetMapping("getMovieDetail")
+    Movie getMovieDetail(@RequestParam("movieId")Integer movieId);
 }
 

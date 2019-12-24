@@ -28,5 +28,9 @@ public class MybatisMovieService {
     public int getMovieNum() {
         return mybatisMovieDao.getMovieNum();
     }
+
+    public Movie getMovieDetail(Integer movieId) {
+        return mybatisMovieDao.getMovieDetail(movieId);
+    }
 }
 

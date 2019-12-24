@@ -37,5 +37,15 @@ public class MovieServiceFallback implements MovieServiceClient {
     public int getMovieNum() {
         return defaultPage;
     }
+
+    @Override
+    public Movie getMovieDetail(Integer movieId) {
+        Movie movie = new Movie();
+        movie.setMovieId(-1);
+        movie.setMovieName("error");
+        movie.setImagePath("/images/testmovie.jpg");
+
+        return movie;
+    }
 }
 

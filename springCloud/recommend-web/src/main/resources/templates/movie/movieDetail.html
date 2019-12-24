@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Movie List</title>
+    <link type="text/css" href="/core/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link type="text/css" href="/css/star-rating.css" rel="stylesheet"/>
+    <script type="text/javascript" th:src="${'/js/jquery/jquery-3.0.0.min.js'}"></script>
+    <script type="text/javascript" th:src="${'/core/bootstrap/dist/js/bootstrap.min.js'}"></script>
+    <script type="text/javascript" th:src="${'/js/star-rating.js'}"></script>
+
+
+
+    <script type="text/javascript" th:inline="none">
+
+        $(document).ready(function () {
+
+            $("#input-star").rating()/*.on("rating.clear", function (event) {
+                alert("Your rating is reset")
+            })*/.on("rating.change", function (event, value, caption) {
+                // alert("You rated: " + value + " = " + $(caption).text());
+                $.ajax({
+                    type: "POST",
+                    url: "/ratedMovie",
+                    data: {"movieId": $("#movieID").html(), "rated": value},
+                    // contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        alert(data["result"]);
+                    },
+                    failure: function (errMsg) {
+                        alert(errMsg);
+                    }
+                });
+            });
+
+        });
+
+
+    </script>
+</head>
+<body>
+
+<div id="content" class="row">
+    <div class="col-sm-6 col-md-6">
+        <div class="thumbnail">
+            <img  th:src="${movie.imagePath}"
+                 alt="通用的占位符缩略图">
+            <div class="caption">
+                <h3 th:text="${movie.movieName}"></h3>
+                <p th:text="${movie.directors}"></p>
+                <p th:text="${movie.actors}"></p>
+                <p th:text="${movie.avgRating}"></p>
+                <p th:text="${movie.numRatings}"></p>
+                <p th:text="${movie.plotSummary}"></p>
+                <p id="movieID" th:text="${movie.movieId}" hidden></p>
+                <!--<p>
+                    <a href="#" class="btn btn-primary" role="button">
+                        喜欢
+                    </a>
+                    <a href="#" class="btn btn-default" role="button">
+                        不喜欢
+                    </a>
+                </p>-->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="rating-stars">
+    <input id="input-star" value="2.5" type="text" class="rating rating-input" data-min="0" data-max="5"
+           data-step="0.1" data-size="xs" required="" title="">
+</div>
+
+</body>
+</html>

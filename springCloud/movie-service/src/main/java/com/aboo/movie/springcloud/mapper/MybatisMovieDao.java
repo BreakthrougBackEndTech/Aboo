@@ -19,4 +19,7 @@ public interface MybatisMovieDao {
     @Select("select count(movieId) from movie")
     int getMovieNum();
 
+    @Select("select * from movie where movieId=#{movieId}")
+    Movie getMovieDetail(Integer movieId);
+
 }
