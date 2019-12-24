@@ -1,10 +1,11 @@
 package com.aboo.movie.springcloud.service;
 
+import com.aboo.movie.springcloud.domain.Movie;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.Map;
+import java.util.List;
 
 /**
  * @description:
@@ -14,10 +15,11 @@ import java.util.Map;
 @FeignClient(value = "movie-service", fallback = MovieServiceFallback.class)
 public interface MovieServiceClient {
 
-    @GetMapping("/getMoviePage")
-    Map<String, Object> getMoviePage(@RequestParam("start") int start,
-                                     @RequestParam("length") int length,
-                                     @RequestParam("draw") int draw,
-                                     @RequestParam("name") String name);
+    @GetMapping("getMovies")
+    List<Movie> getMoviePage(@RequestParam("start") int start,
+                             @RequestParam("length") int length);
+
+    @GetMapping("getMovieNum")
+    int getMovieNum();
 }
 

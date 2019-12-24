@@ -21,6 +21,7 @@
         <module>admin-server</module>
         <module>zuul-server</module>
         <module>zipkin-server</module>
+        <module>movie-service</module>
     </modules>
 
     <dependencyManagement>

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -30,13 +31,17 @@ public class MovieController {
     @RequestMapping("movieInfoList")
     @ResponseBody
     public Map<String, Object> trapInfoList(HttpServletRequest request, @RequestParam Integer start, @RequestParam Integer length,
-                                            @RequestParam(required = false, defaultValue = "0") int draw,
+                                            @RequestParam(required = false, defaultValue = "0") int recordsTotal,
                                             @RequestParam(value = "search[value]", required = false, defaultValue = "") String name) {
 //        Pageable pageable = new PageRequest(start / length, length);
 
 //        Page<TrapInfo> page = trapInfoService.findByNameLike("%" + name + "%", pageable);
 
-        return movieService.getMoviePage(start, length, draw, name);
+        Map<String, Object> maps = new HashMap<>();
+        maps.put("movies", movieService.getMoviePage((start - 1) * length, length));
+        maps.put("recordsTotal", recordsTotal == 0 ? movieService.getMovieNum() : recordsTotal);
+
+        return maps;
     }
 
 

@@ -16,29 +16,26 @@ import java.util.Map;
 @Component
 public class MovieServiceFallback implements MovieServiceClient {
 
+    int defaultPage = 9;
+
     @Override
-    public Map<String, Object> getMoviePage(int start, int length, int draw, String name) {
+    public List<Movie> getMoviePage(int start, int length) {
         List<Movie> movies = new ArrayList<>();
 
-        Movie movie1 = new Movie();
-        movie1.setMovieId(1);
-        movie1.setMovieName("movie1");
-        movies.add(movie1);
+        for(int i =1; i<defaultPage+1; i++){
+            Movie movie = new Movie();
+            movie.setMovieId(i);
+            movie.setMovieName("movie" + i);
+            movie.setImagePath("/images/testmovie.jpg");
+            movies.add(movie);
+        }
 
-        Movie movie2 = new Movie();
-        movie2.setMovieId(2);
-        movie2.setMovieName("movie2");
-        movies.add(movie2);
+        return movies;
+    }
 
-        Map<String, Object> maps = new HashMap<>();
-        maps.put("movies", movies);
-        maps.put("recordsTotal", 31);
-/*        maps.put("data", page.getContent());
-        maps.put("recordsTotal", page.getTotalElements());
-        maps.put("recordsFiltered", page.getTotalElements());*/
-        maps.put("draw", draw);
-
-        return maps;
+    @Override
+    public int getMovieNum() {
+        return defaultPage;
     }
 }
 
