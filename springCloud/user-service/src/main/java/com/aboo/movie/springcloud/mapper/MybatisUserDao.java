@@ -18,4 +18,9 @@ public interface MybatisUserDao {
     })
     Optional<MybatisUser> findByUsername(String username);
 
+
+    @Insert("insert into mybatis_user(username,password) values(#{username},#{password})")
+    @Options(useGeneratedKeys = true, keyProperty = "id",keyColumn="id")
+    int insertUser(MybatisUser user);
+
 }

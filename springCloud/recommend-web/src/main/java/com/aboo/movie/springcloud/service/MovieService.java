@@ -1,6 +1,7 @@
 package com.aboo.movie.springcloud.service;
 
 import com.aboo.movie.springcloud.domain.Movie;
+import com.aboo.movie.springcloud.domain.MovieRating;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,6 +40,10 @@ public class MovieService {
         addImagePathPrefix(movie);
 
         return movie;
+    }
+
+    public void updateMovieRating(MovieRating movieRating){
+        movieServiceClient.updateMovieRating(movieRating);
     }
 
     private void addImagePathPrefix(Movie movie) {

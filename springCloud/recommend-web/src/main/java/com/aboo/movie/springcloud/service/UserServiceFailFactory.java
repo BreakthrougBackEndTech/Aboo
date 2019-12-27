@@ -26,6 +26,7 @@ public class UserServiceFailFactory implements FallbackFactory<UserServiceClient
 
             log.info("return default user");
 
+            mybatisUser.setId(0L);
             mybatisUser.setUsername(username);
             mybatisUser.setPassword(username);
 

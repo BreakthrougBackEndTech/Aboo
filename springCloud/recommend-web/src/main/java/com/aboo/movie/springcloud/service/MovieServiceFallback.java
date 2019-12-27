@@ -1,6 +1,7 @@
 package com.aboo.movie.springcloud.service;
 
 import com.aboo.movie.springcloud.domain.Movie;
+import com.aboo.movie.springcloud.domain.MovieRating;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -46,6 +47,11 @@ public class MovieServiceFallback implements MovieServiceClient {
         movie.setImagePath("/images/testmovie.jpg");
 
         return movie;
+    }
+
+    @Override
+    public void updateMovieRating(MovieRating movieRating) {
+        throw new RuntimeException("not support rating now");
     }
 }
 

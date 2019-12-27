@@ -32,6 +32,10 @@ public class MovieUser implements UserDetails {
         return auths;
     }
 
+    public Long getUserId(){
+        return user.getId();
+    }
+
     @Override
     public String getPassword() {
         return user.getPassword();

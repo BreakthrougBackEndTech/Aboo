@@ -1,8 +1,12 @@
 package com.aboo.movie.springcloud.controller;
 
+import com.aboo.movie.springcloud.MovieUser;
 import com.aboo.movie.springcloud.domain.Movie;
+import com.aboo.movie.springcloud.domain.MovieRating;
+import com.aboo.movie.springcloud.service.CustomUserService;
 import com.aboo.movie.springcloud.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,6 +30,9 @@ public class MovieController {
 
     @Autowired
     MovieService movieService;
+
+    @Autowired
+    CustomUserService customUserService;
 
     @RequestMapping("movieList")
     public String trapList() {
@@ -57,10 +66,23 @@ public class MovieController {
 
     @PostMapping(path = "/ratedMovie")
     @ResponseBody
-    public Map<String, Object> ratedMovie(@RequestParam Integer movieId, @RequestParam Float rated) {
-
+    public Map<String, Object> ratedMovie(Principal principal, @RequestParam int movieId, @RequestParam float rated) {
         Map<String, Object> maps = new HashMap<>();
-        maps.put("result", "rated success");
+
+        try {
+//        String userName = principal.getName();
+// Authentication authentication 或是用
+            MovieRating movieRating = new MovieRating();
+            movieRating.setUserId(customUserService.getUserId(principal.getName()));
+            movieRating.setDate(Calendar.getInstance().getTime());
+            movieRating.setMovieId(movieId);
+            movieRating.setRating(rated);
+            movieService.updateMovieRating(movieRating);
+
+            maps.put("result", "rated success");
+        } catch (Exception e) {
+            maps.put("result", "rated failed");
+        }
 
         return maps;
     }

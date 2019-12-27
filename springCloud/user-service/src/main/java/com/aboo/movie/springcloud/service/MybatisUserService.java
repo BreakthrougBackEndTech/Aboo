@@ -1,11 +1,16 @@
 package com.aboo.movie.springcloud.service;
 
+import com.aboo.movie.springcloud.domain.MybatisRole;
 import com.aboo.movie.springcloud.domain.MybatisUser;
+import com.aboo.movie.springcloud.mapper.MybatisRoleDao;
 import com.aboo.movie.springcloud.mapper.MybatisUserDao;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.beans.Transient;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -19,6 +24,9 @@ public class MybatisUserService /*implements UserDetailsService*/ {
     @Autowired
     MybatisUserDao mybatisUserDao;
 
+    @Autowired
+    MybatisRoleDao mybatisRoleDao;
+
     public Optional<MybatisUser> findByUsername(String s) {
         Optional<MybatisUser> user = mybatisUserDao.findByUsername(s);
 
@@ -30,5 +38,17 @@ public class MybatisUserService /*implements UserDetailsService*/ {
         }
         return user;
     }
+
+
+    @Transactional
+    public void insertUser(MybatisUser user){
+        mybatisUserDao.insertUser(user);
+        for(MybatisRole role: user.getRoles()){
+            role.setUserId(user.getId());
+        }
+
+        mybatisRoleDao.insertRoleList(user.getRoles());
+    }
+
 }
 
