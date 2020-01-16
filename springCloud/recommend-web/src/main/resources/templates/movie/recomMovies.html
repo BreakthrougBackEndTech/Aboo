@@ -5,106 +5,29 @@
     <title>Movie List</title>
     <link type="text/css" href="/core/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
     <link type="text/css" href="/css/star-rating.css" rel="stylesheet"/>
-    <!--<link rel="stylesheet" type="text/css" href="/core/datatables/media/css/dataTables.bootstrap.css"/>-->
     <script type="text/javascript" th:src="${'/js/jquery/jquery-3.0.0.min.js'}"></script>
     <script type="text/javascript" th:src="${'/core/bootstrap/dist/js/bootstrap.min.js'}"></script>
     <script type="text/javascript" th:src="${'/js/jquery.bootpag.min.js'}"></script>
     <script type="text/javascript" th:src="${'/js/star-rating.js'}"></script>
-    <!--<script type="text/javascript" th:src="${'/core/datatables/media/js/jquery.dataTables.js'}"></script>-->
-    <!--<script type="text/javascript" th:src="${'/core/datatables/media/js/dataTables.bootstrap.js'}"></script>-->
 
 
     <script type="text/javascript" th:inline="none">
 
         $(document).ready(function () {
-            /* var table=$("#movielistTable").DataTable({
-                 "autoWidth": true,
-                 "processing": true,
-                 "serverSide": true,
-                 "ajax": {
-                     "url" : "/movieInfoList",
-                     "type" : "POST"
-                 },
-                 "order": [[ 1, "desc" ]],
-                 "pagingType": "full_numbers",
-                 columns : [
-                     // { "data": "id", visible:false},
-                     { "data": "movieId"},
-                     { "data": "movieName" }
-                 ]
-             });*/
-
-          /*  $("#input-21b").rating().on("rating.clear", function(event) {
-                alert("Your rating is reset")
-            }).on("rating.change", function(event, value, caption) {
-                alert("You rated: " + value + " = " + $(caption).text());
-            });*/
-
-            var numsPerPage = 12;
-
             $.ajax({
                 type: "POST",
-                url: "/movieInfoList",
-                data: {"start": 1, "length": numsPerPage},
+                url: "/recomMovieInfoList",
+                data: {"top": 10},
                 // contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (data) {
                     showMovies(data);
-                    // init bootpag
-                    $('#page-selection').bootpag({
-                        total: data["recordsTotal"] / numsPerPage + 1,
-                        maxVisible: 10
-                    }).on("page", function (event, /* page number here */ num) {
-                        // $("#content").html("Insert content"); // some ajax content loading...
-
-                        $.ajax({
-                            type: "POST",
-                            url: "/movieInfoList",
-                            data: {"start": num, "length": numsPerPage},
-                            // contentType: "application/json; charset=utf-8",
-                            dataType: "json",
-                            success: function (data) {
-                                showMovies(data);
-                            },
-                            failure: function (errMsg) {
-                                alert(errMsg);
-                            }
-                        });
-                    });
-
                 },
                 failure: function (errMsg) {
                     alert(errMsg);
                 }
             });
 
-
-            // init bootpag
-            /*   $('#page-selection').bootpag({
-                   total: 10
-               }).on("page", function(event, /!* page number here *!/ num){
-                   $("#content").html("Insert content"); // some ajax content loading...
-               });*/
-
-
-            // total number of pages
-            // maxVisible maximum number of visible pages
-            // page page to show on start
-            // leaps next/prev buttons move over one page or maximum visible pages
-            // next text (default »)
-            // prev text (default «)
-            // href template for pagination links (default javascript:void(0);)
-            // hrefVariable variable name in href template for page number (default {{number}})
-            // firstLastUse do we ant first and last (default true<)/li>
-            // first name of first (default 'FIRST')
-            // last name of last (default 'LAST')
-            // wrapClass css class for wrap (default 'pagination')
-            // activeClass css class for active (default 'active')
-            // disabledClass css class for disabled (default 'disabled')
-            // nextClass css class for next (default 'next')
-            // prevClass css class for prev (default 'prev')
-            // lastClass css class for last (default 'last')
-            // firstClass css class for first (default 'first')
 
         });
 
@@ -138,25 +61,7 @@
     </script>
 </head>
 <body>
-<!--<div id="imggrid" class="row">
-</div>-->
-<!--<div class="container">
-    <table id="movielistTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
-        <thead>
-        <tr>
-            <th>movieId</th>
-            <th>movieName</th>
-        </tr>
-        </thead>
-    </table>
-</div>-->
-<!--<div class="rating-stars">
-    <input id="input-21b" value="2.5" type="text" class="rating rating-input" data-min="0" data-max="5"
-            data-step="0.1" data-size="xs" required="" title="">
-</div>-->
-<div>
-    <a href="/recomMovies">推荐电影</a>
-</div>
+
 <div id="content" class="row">
     <div class="col-sm-3 col-md-3">
         <div class="thumbnail">

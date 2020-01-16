@@ -6,6 +6,7 @@ import com.aboo.movie.springcloud.domain.MovieRating;
 import com.aboo.movie.springcloud.service.CustomUserService;
 import com.aboo.movie.springcloud.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +20,7 @@ import java.security.Principal;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 /**
  * @description:
@@ -82,6 +84,27 @@ public class MovieController {
             maps.put("result", "rated success");
         } catch (Exception e) {
             maps.put("result", "rated failed");
+        }
+
+        return maps;
+    }
+
+
+    @RequestMapping("recomMovies")
+    public String recomMovies() {
+        return "movie/recomMovies";
+    }
+
+
+    @RequestMapping("recomMovieInfoList")
+    @ResponseBody
+    public Map<String, Object> recomMovieInfoList(Authentication authentication,
+                                                  @RequestParam(required = false, defaultValue = "0") int top) {
+        Map<String, Object> maps = new HashMap<>();
+        try {
+            maps.put("movies", movieService.getRecomMovies(customUserService.getUserId(authentication.getName())));
+        } catch (ExecutionException e) {
+            e.printStackTrace();
         }
 
         return maps;

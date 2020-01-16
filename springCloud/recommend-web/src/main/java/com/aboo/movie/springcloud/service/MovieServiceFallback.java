@@ -21,17 +21,7 @@ public class MovieServiceFallback implements MovieServiceClient {
 
     @Override
     public List<Movie> getMoviePage(int start, int length) {
-        List<Movie> movies = new ArrayList<>();
-
-        for(int i =1; i<defaultPage+1; i++){
-            Movie movie = new Movie();
-            movie.setMovieId(i);
-            movie.setMovieName("movie" + i);
-            movie.setImagePath("/images/testmovie.jpg");
-            movies.add(movie);
-        }
-
-        return movies;
+        return getDefaultMovies();
     }
 
     @Override
@@ -52,6 +42,25 @@ public class MovieServiceFallback implements MovieServiceClient {
     @Override
     public void updateMovieRating(MovieRating movieRating) {
         throw new RuntimeException("not support rating now");
+    }
+
+    @Override
+    public List<Movie> getRecomMovies(int userId) {
+        return getDefaultMovies();
+    }
+
+    private List<Movie> getDefaultMovies() {
+        List<Movie> movies = new ArrayList<>();
+
+        for(int i =1; i<defaultPage+1; i++){
+            Movie movie = new Movie();
+            movie.setMovieId(i);
+            movie.setMovieName("movie" + i);
+            movie.setImagePath("/images/testmovie.jpg");
+            movies.add(movie);
+        }
+
+        return movies;
     }
 }
 

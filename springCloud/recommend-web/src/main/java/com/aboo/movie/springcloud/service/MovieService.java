@@ -19,15 +19,16 @@ public class MovieService {
     @Autowired
     private MovieServiceClient movieServiceClient;
 
-    /**need download images with movie-crawler module*/
+    /**
+     * need download images with movie-crawler module
+     */
     private static final String imageFolder = "/images/";
 
     public List<Movie> getMoviePage(int start, int length) {
         List<Movie> movies = movieServiceClient.getMoviePage(start, length);
         //change images patch
-        for (Movie movie : movies) {
-            addImagePathPrefix(movie);
-        }
+        addImagePathPrefix(movies);
+
         return movies;
     }
 
@@ -42,12 +43,26 @@ public class MovieService {
         return movie;
     }
 
-    public void updateMovieRating(MovieRating movieRating){
+    public List<Movie> getRecomMovies(int userId) {
+        List<Movie> movies = movieServiceClient.getRecomMovies(userId);
+
+        addImagePathPrefix(movies);
+
+        return movies;
+    }
+
+    public void updateMovieRating(MovieRating movieRating) {
         movieServiceClient.updateMovieRating(movieRating);
     }
 
     private void addImagePathPrefix(Movie movie) {
         movie.setImagePath(imageFolder + movie.getImagePath());
+    }
+
+    private void addImagePathPrefix(List<Movie> movies) {
+        for (Movie movie : movies) {
+            addImagePathPrefix(movie);
+        }
     }
 }
 

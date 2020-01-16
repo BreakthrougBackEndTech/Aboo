@@ -2,6 +2,7 @@ package com.aboo.movie.springcloud.controller;
 
 import com.aboo.movie.springcloud.domain.Movie;
 import com.aboo.movie.springcloud.service.MybatisMovieService;
+import com.aboo.movie.springcloud.service.RecomMovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +21,9 @@ public class MovieController {
     @Autowired
     MybatisMovieService mybatisMovieService;
 
+    @Autowired
+    RecomMovieService recomMovieService;
+
     @GetMapping(path = "/getMovies")
     public List<Movie> getMovies(@RequestParam int start, @RequestParam int length) {
         return mybatisMovieService.getMovies(start, length);
@@ -33,6 +37,11 @@ public class MovieController {
     @GetMapping(path = "/getMovieDetail")
     public Movie getMovieDetail(@RequestParam Integer movieId) {
         return mybatisMovieService.getMovieDetail(movieId);
+    }
+
+    @GetMapping(path = "/getRecomMovies")
+    public List<Movie> getRecomMovies(@RequestParam int userId){
+        return recomMovieService.getRecomMovies(userId);
     }
 
 }

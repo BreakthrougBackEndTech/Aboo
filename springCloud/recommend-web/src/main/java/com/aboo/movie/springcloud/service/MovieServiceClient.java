@@ -29,5 +29,8 @@ public interface MovieServiceClient {
 
     @PostMapping("updateMovieRating")
     void updateMovieRating(MovieRating movieRating);
+
+    @GetMapping("getRecomMovies")
+    List<Movie> getRecomMovies(@RequestParam("userId") int userId);
 }
 
