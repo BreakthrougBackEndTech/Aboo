@@ -52,6 +52,8 @@ http://localhost:9411/zipkin
 调用跟踪 生产环境需要将Sampler.ALWAYS_SAMPLE 去掉， 设置为百分比
 官方版本https://search.maven.org/remote_content?g=io.zipkin&a=zipkin-server&v=LATEST&c=exec
 ```
+还有两种链路跟踪的
+zipkin,pinpoint和skywalking
 
 ### log-server
 统一日志管理
