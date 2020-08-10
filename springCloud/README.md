@@ -4,6 +4,10 @@
 
 ### regist-server
 服务发现eureka
+服务分区 region 和zone  https://segmentfault.com/a/1190000014107639
+https://www.cnblogs.com/ldws/p/12379994.html
+一个机房内的服务优先调用同一个机房内的服务，当同一个机房的服务不可用的时候，
+再去调用其它机房的服务，以达到减少延时的作用
 
 ### recommend-web
 推荐系统前端界面
