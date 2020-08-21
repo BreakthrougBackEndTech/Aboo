@@ -26,7 +26,7 @@ public class TrackingFilter extends ZuulFilter{
     }
     @Override
     public int filterOrder() {
-        return FILTER_ORDER;
+        return FILTER_ORDER; // filter执行顺序，通过数字指定 ,优先级为0，数字越大，优先级越低
     }
     public boolean shouldFilter() {
         return SHOULD_FILTER;

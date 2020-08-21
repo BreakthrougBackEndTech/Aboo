@@ -7,6 +7,9 @@ spring:
   cloud:
     config:
       uri: http://localhost:8888
+#      name: config-client # 对应 {application} 部分
+#      profile: dev # 对应 {profile} 部分
+#      label: master # 对应 {label} 部分，即 Git 的分支。如果配置中心使用的是本地存储，则该参数无用
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/recommend?useUnicode=true&characterEncoding=utf-8&useSSL=true
